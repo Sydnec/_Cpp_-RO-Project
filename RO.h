@@ -23,7 +23,7 @@ int DqEq(){
 }
 int BC(){
 	//B, C
-	vector<string> vDir(4);
+	vector<string> vDir(2);
 	vDir[0] = "B";
 	vDir[1] = "C";
 
