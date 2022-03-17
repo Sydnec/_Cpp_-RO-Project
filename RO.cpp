@@ -1,7 +1,6 @@
-#include "RO.h"
+#include "readFiles.cpp"
 
 int main()
 {
-    // BC();
-    DqEq();
+    Exercice1();
 }
