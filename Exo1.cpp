@@ -10,7 +10,7 @@ using namespace std;
 vector<string> splitString(string str, char splitter){
     vector<string> result;
     string current = ""; 
-    for(int i = 1; i < str.size(); i++){
+    for(int i = 0; i < str.size(); i++){
         if(str[i] == splitter){
             if(current != ""){
                 result.push_back(current);
@@ -19,7 +19,7 @@ vector<string> splitString(string str, char splitter){
             continue;
         }
 		else{
-        current += str[i];
+        	current += str[i];
 		}
     }
     if(current.size() != 0)
@@ -32,7 +32,7 @@ int Exo2(string fileLine){
 	int f = 0;
 	vector<string> result;
 	result = splitString(fileLine, carac);
-	 f = stoi(result[0]);
+	f = stoi(result[1]);
 	cout << f << endl;
 }
 
