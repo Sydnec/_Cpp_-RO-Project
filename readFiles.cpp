@@ -9,29 +9,32 @@ using namespace std;
 
 void readFiles(string DirName){
 	string dirname = "./BildeKrarup/" + DirName + "/files.lst";
-			
-			ifstream mydir;
-			mydir.open(dirname);
-			if (!mydir.is_open()) cerr << "Can't open file " << dirname << '\n';
-			else {
-				ifstream myfile;
-				string line = "", filename ="";
 
-				while (getline(mydir, line)) {
-					string fileLine = "";
-					filename = "./BildeKrarup/" + vDir[i] + '/' + line;
-					cout << "Filename = " << filename << '\n';
-					myfile.open(filename);
-					if (!myfile.is_open()) cerr << "Can't open file " << filename << '\n';
-					
-					while (getline(myfile, fileLine)) {
-						cout << fileLine;
-					}
-					cout << '\n';
-					myfile.close();
-				}
-				mydir.close();
+	ifstream mydir;
+	mydir.open(dirname);
+	if (!mydir.is_open()) cerr << "Can't open file " << dirname << '\n';
+	else {
+		ifstream myfile;
+		string line = "", filename = "";
+
+		while (getline(mydir, line)) {
+			string fileLine = "";
+			filename = "./BildeKrarup/" + DirName + '/' + line;
+			cout << "Filename = " << filename << '\n';
+			myfile.open(filename);
+			if (!myfile.is_open()) {
+				cerr << "Can't open file " << filename << '\n';
+				return;
 			}
+
+			while (getline(myfile, fileLine)) {
+				//cout << fileLine;
+			}
+			myfile.close();
+		}
+		mydir.close();
+	}
+	return;
 }
 
 void Exercice1(){
