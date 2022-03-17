@@ -7,23 +7,23 @@
 
 using namespace std;
 
-void readFiles(string DirName){
-	string dirname = "./BildeKrarup/" + DirName + "/files.lst";
+void read(string directory){
+	string dir = "./BildeKrarup/" + directory + "/files.lst";
 
 	ifstream mydir;
-	mydir.open(dirname);
-	if (!mydir.is_open()) cerr << "Can't open file " << dirname << '\n';
+	mydir.open(dir);
+	if (!mydir.is_open()) cerr << "Can't open " << dir << '\n';
 	else {
 		ifstream myfile;
 		string line = "", filename = "";
 
 		while (getline(mydir, line)) {
 			string fileLine = "";
-			filename = "./BildeKrarup/" + DirName + '/' + line;
+			filename = "./BildeKrarup/" + directory + '/' + line;
 			cout << "Filename = " << filename << '\n';
 			myfile.open(filename);
 			if (!myfile.is_open()) {
-				cerr << "Can't open file " << filename << '\n';
+				cerr << "Can't open " << filename << '\n';
 				return;
 			}
 
@@ -46,14 +46,14 @@ void Exercice1(){
 	vDir[3] = "Eq";
 
 	for (int i = 0; i < vDir.size(); ++i) {
-		if (vDir[i] == "Dq" || vDir[i] == "Eq") {
+		if (i == 3 || i == 4) {
 			for (int j(1); j <= 10; ++j) {
 				string str = vDir[i] + "/" + to_string(j);
-				readFiles(str);
+				read(str);
 			}
 		}
 		else{
-			readFiles(vDir[i]);
+			read(vDir[i]);
 		}
 	}
 }
