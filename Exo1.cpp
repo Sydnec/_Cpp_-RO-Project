@@ -32,13 +32,13 @@ int Exo2(string fileLine){
 	int f = 0;
 	vector<string> result;
 	result = splitString(fileLine, carac);
-	// f = result[0];
-	cout << result[0];
+	 f = stoi(result[0]);
+	cout << f << endl;
 }
 
 void read(string directory){
 	string dir = directory + "/files.lst";
-	int cpt = 0;
+	
 	ifstream mydir;
 	mydir.open(dir);
 	if (!mydir.is_open()) cerr << "Can't open " << dir << '\n';
@@ -49,7 +49,8 @@ void read(string directory){
 		while (getline(mydir, line)) {
 			string fileLine = "";
 			int result = 0;
-			
+			int cpt = 0;
+
 			filename = directory + '/' + line;
 			cout << "Filename = " << filename << '\n';
 			myfile.open(filename);
