@@ -27,6 +27,14 @@ vector<string> splitString(string str, char splitter){
     return result;
 }
 
+int minimum(vector<string> range){
+	int actual = stoi(range[2]);
+	for(int i = 3; i<range.size(); ++i){
+		actual = min(actual, stoi(range[i]));
+	}
+	return actual;
+}
+
 int Exo2(string fileLine){
 	char carac = ' ';
 	int f = 0;
@@ -34,6 +42,7 @@ int Exo2(string fileLine){
 	result = splitString(fileLine, carac);
 	f = stoi(result[1]);
 	cout << f << endl;
+	cout << minimum(result) << endl;
 }
 
 void read(string directory){
