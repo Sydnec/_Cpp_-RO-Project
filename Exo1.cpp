@@ -8,7 +8,7 @@
 using namespace std;
 
 void read(string directory){
-	string dir = "./BildeKrarup/" + directory + "/files.lst";
+	string dir = directory + "/files.lst";
 
 	ifstream mydir;
 	mydir.open(dir);
@@ -19,14 +19,13 @@ void read(string directory){
 
 		while (getline(mydir, line)) {
 			string fileLine = "";
-			filename = "./BildeKrarup/" + directory + '/' + line;
+			filename = directory + '/' + line;
 			cout << "Filename = " << filename << '\n';
 			myfile.open(filename);
 			if (!myfile.is_open()) {
 				cerr << "Can't open " << filename << '\n';
 				return;
 			}
-
 			while (getline(myfile, fileLine)) {
 				//cout << fileLine;
 			}
@@ -37,7 +36,7 @@ void read(string directory){
 	return;
 }
 
-void Exercice1(){
+void BildeKrarup(){
 	//B, C, Dq, Eq
 	vector<string> vDir(4);
 	vDir[0] = "B";
@@ -46,14 +45,39 @@ void Exercice1(){
 	vDir[3] = "Eq";
 
 	for (int i = 0; i < vDir.size(); ++i) {
-		if (i == 3 || i == 4) {
-			for (int j(1); j <= 10; ++j) {
-				string str = vDir[i] + "/" + to_string(j);
+		if (i == 2 || i == 3) {
+			for (int j = 1; j <= 10; ++j) {
+				string str = "./BildeKrarup/" + vDir[i] + "/" + to_string(j);
 				read(str);
 			}
 		}
 		else{
-			read(vDir[i]);
+			read("./BildeKrarup/" + vDir[i]);
 		}
 	}
+}
+
+void KoerkelGhosh(){
+	//B, C, Dq, Eq
+	vector<string> vDir(3);
+	vDir[0] = "250";
+	vDir[1] = "500";
+	vDir[2] = "750";
+
+	vector<string> vSubDir(3);
+	vSubDir[0] = "a";
+	vSubDir[1] = "b";
+	vSubDir[2] = "c";
+
+	for (int i = 0; i < vDir.size(); ++i) {
+		for (int j = 0; j < 3; ++j) {
+			string str = "./KoerkelGhosh/" + vDir[i] + "/" + vSubDir[j];
+			read(str);
+		}
+	}
+}
+
+void Exercice1(){
+	BildeKrarup();
+	KoerkelGhosh();
 }
