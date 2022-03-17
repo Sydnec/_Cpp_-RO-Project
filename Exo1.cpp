@@ -7,9 +7,38 @@
 
 using namespace std;
 
+vector<string> splitString(string str, char splitter){
+    vector<string> result;
+    string current = ""; 
+    for(int i = 1; i < str.size(); i++){
+        if(str[i] == splitter){
+            if(current != ""){
+                result.push_back(current);
+                current = "";
+            } 
+            continue;
+        }
+		else{
+        current += str[i];
+		}
+    }
+    if(current.size() != 0)
+        result.push_back(current);
+    return result;
+}
+
+int Exo2(string fileLine){
+	char carac = ' ';
+	int f = 0;
+	vector<string> result;
+	result = splitString(fileLine, carac);
+	// f = result[0];
+	cout << result[0];
+}
+
 void read(string directory){
 	string dir = directory + "/files.lst";
-
+	int cpt = 0;
 	ifstream mydir;
 	mydir.open(dir);
 	if (!mydir.is_open()) cerr << "Can't open " << dir << '\n';
@@ -19,6 +48,8 @@ void read(string directory){
 
 		while (getline(mydir, line)) {
 			string fileLine = "";
+			int result = 0;
+			
 			filename = directory + '/' + line;
 			cout << "Filename = " << filename << '\n';
 			myfile.open(filename);
@@ -27,7 +58,11 @@ void read(string directory){
 				return;
 			}
 			while (getline(myfile, fileLine)) {
-				//cout << fileLine;
+				cpt ++;
+				if(cpt > 2){
+					result += Exo2(fileLine); 
+				}
+				// cout << fileLine;
 			}
 			myfile.close();
 		}
