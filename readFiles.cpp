@@ -7,8 +7,8 @@
 
 using namespace std;
 
-void readFiles(string dirName){
-	string dirname = "./BildeKrarup/" + vDir[i] + "/files.lst";
+void readFiles(string DirName){
+	string dirname = "./BildeKrarup/" + DirName + "/files.lst";
 			
 			ifstream mydir;
 			mydir.open(dirname);
