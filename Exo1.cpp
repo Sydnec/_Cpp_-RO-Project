@@ -41,8 +41,7 @@ int Exo2(string fileLine){
 	vector<string> result;
 	result = splitString(fileLine, carac);
 	f = stoi(result[1]);
-	cout << f << endl;
-	cout << minimum(result) << endl;
+	return f + minimum(result);
 }
 
 void read(string directory){
