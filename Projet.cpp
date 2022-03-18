@@ -82,7 +82,7 @@ void read(string directory){
 			for (int i(0); i < 2; ++i) getline(myfile, fileLine);
 			nbLin = splitLine(fileLine)[0];
 			nbCol = splitLine(fileLine)[1];
-			// cout << nbCol << " " << nbLin << endl;
+			// cout << nbCol << " " << nbLin << endl ;
 			while (getline(myfile, fileLine)) {
 				strFile.push_back(fileLine);
 			}
