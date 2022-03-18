@@ -4,6 +4,8 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <algorithm>
+#include <unordered_set>
 
 using namespace std;
 
@@ -27,31 +29,55 @@ vector<int> splitLine(string str){
 	return result;
 }
 
-int minimum(vector<int> column){
+pair<int, int> minimum(vector<int> column){
 	int actualMin = column[0];
+	int indMin = 0;
 	for(int i = 1; i<column.size(); ++i){
-		actualMin = min(actualMin, column[i]);
+		if(actualMin > column[i]){
+			actualMin = column[i];
+			indMin = i;
+		}
 	}
-	return actualMin;
+	return make_pair(indMin, actualMin);
+}
+
+vector<int> removeDuplacates(vector<int> v){
+	vector<int> result;
+    sort(v.begin(), v.end());
+    v.erase(unique(v.begin(), v.end()), v.end());
+ 
+    for (auto it = v.cbegin(); it != v.cend(); ++it) {
+        // cout << *it << ' ';
+		result.push_back(*it);
+    }
+	return result;
 }
 
 int Exo2(vector<string> file, int NbCol, int NbLine) {
 	vector< vector<int> > result;
+	vector<int> ind;
 	vector<int> Vcol;
+	pair<int, int> p;
 	int sum = 0;
+
 	for (int i = 0; i < file.size(); ++i) {
 		result.push_back(splitLine(file[i]));
-	}
-	for (int j = 0; j < NbLine; ++j) { 
-		sum += result[j][1];
 	}
 	for (int i = 2; i < NbCol; ++i) {
 		Vcol.clear();
 		for (int j = 0; j < NbLine; ++j) { 
 			Vcol.push_back(result[j][i]);
+
 		}
-		sum += minimum(Vcol);
+		p = minimum(Vcol);
+		sum += p.second;
+		ind.push_back(p.first);
 	}
+	ind = removeDuplacates(ind);
+	for(int i = 0; i < ind.size(); ++i) {
+		sum += result[ind[i]][1];
+	}
+	cout << sum << endl;
 	return 1;
 }
 
@@ -82,7 +108,7 @@ void read(string directory){
 			for (int i(0); i < 2; ++i) getline(myfile, fileLine);
 			nbLin = splitLine(fileLine)[0];
 			nbCol = splitLine(fileLine)[1];
-			// cout << nbCol << " " << nbLin << endl ;
+			// cout << nbCol << " " << nbLin << endl;
 			while (getline(myfile, fileLine)) {
 				strFile.push_back(fileLine);
 			}
