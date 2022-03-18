@@ -7,41 +7,52 @@
 
 using namespace std;
 
-vector<string> splitString(string str, char splitter){
-    vector<string> result;
-    string current = ""; 
-    for(int i = 0; i < str.size(); i++){
-        if(str[i] == splitter){
-            if(current != ""){
-                result.push_back(current);
-                current = "";
-            } 
-            continue;
-        }
-		else{
-        	current += str[i];
+vector<int> splitLine(string str){
+    vector<int> result;
+	string current = "";
+	for (int i = 0; i < str.size(); i++) {
+		if (isblank(str[i])) {
+			if (current != "") {
+				result.push_back(stoi(current));
+				current = "";
+			}
+			continue;
 		}
-    }
-    if(current.size() != 0)
-        result.push_back(current);
-    return result;
-}
-
-int minimum(vector<string> range){
-	int actual = stoi(range[2]);
-	for(int i = 3; i<range.size(); ++i){
-		actual = min(actual, stoi(range[i]));
+		else {
+			current += str[i];
+		}
 	}
-	return actual;
+	if (current.size() != 0)
+		result.push_back(stoi(current));
+	return result;
 }
 
-int Exo2(string fileLine){
-	char carac = ' ';
-	int f = 0;
-	vector<string> result;
-	result = splitString(fileLine, carac);
-	f = stoi(result[1]);
-	return f + minimum(result);
+int minimum(vector<int> column){
+	int actualMin = column[0];
+	for(int i = 1; i<column.size(); ++i){
+		actualMin = min(actualMin, column[i]);
+	}
+	return actualMin;
+}
+
+int Exo2(vector<string> file, int NbCol, int NbLine) {
+	vector< vector<int> > result;
+	vector<int> Vcol;
+	int sum = 0;
+	for (int i = 0; i < file.size(); ++i) {
+		result.push_back(splitLine(file[i]));
+	}
+	for (int j = 0; j < NbLine; ++j) { 
+		sum += result[j][1];
+	}
+	for (int i = 2; i < NbCol; ++i) {
+		Vcol.clear();
+		for (int j = 0; j < NbLine; ++j) { 
+			Vcol.push_back(result[j][i]);
+		}
+		sum += minimum(Vcol);
+	}
+	return 1;
 }
 
 void read(string directory){
@@ -55,24 +66,27 @@ void read(string directory){
 		string line = "", filename = "";
 
 		while (getline(mydir, line)) {
+			vector<string> strFile;
 			string fileLine = "";
 			int result = 0;
-			int cpt = 0;
+			int nbLin = 0;
+			int nbCol = 0;
 
 			filename = directory + '/' + line;
-			cout << "Filename = " << filename << '\n';
+			cout << "Filename = " << filename << endl;
 			myfile.open(filename);
 			if (!myfile.is_open()) {
-				cerr << "Can't open " << filename << '\n';
+				cerr << "Can't open " << filename << endl;
 				return;
 			}
+			for (int i(0); i < 2; ++i) getline(myfile, fileLine);
+			nbLin = splitLine(fileLine)[0];
+			nbCol = splitLine(fileLine)[1];
+			// cout << nbCol << " " << nbLin << endl;
 			while (getline(myfile, fileLine)) {
-				cpt ++;
-				if(cpt > 2){
-					result += Exo2(fileLine); 
-				}
-				// cout << fileLine;
+				strFile.push_back(fileLine);
 			}
+			Exo2(strFile, nbCol, nbLin);
 			myfile.close();
 		}
 		mydir.close();
@@ -124,4 +138,8 @@ void KoerkelGhosh(){
 void Exercice1(){
 	BildeKrarup();
 	KoerkelGhosh();
+}
+
+int main(){
+	Exercice1();
 }
